@@ -4,14 +4,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#061326" />
-  <meta name="description" content="Stellar Privacy Mixer — careful, desktop-first privacy infrastructure for Stellar with private notes, shielded transfers, private Merkle retrieval, and compact on-chain verification." />
+  <meta name="description" content="Stellar Privacy Mixer — an educational overview of a Stellar-native privacy system built around private notes, shielded transfers, TreePIR path retrieval, and zero-knowledge proof verification." />
   <title>Stellar Privacy Mixer</title>
 
   <link rel="icon" href="./assets/favicon.png" />
   <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./styles.css" />
 </head>
 
@@ -28,12 +28,13 @@
     </a>
 
     <nav class="nav" aria-label="Main navigation">
-      <a href="#overview">Overview</a>
-      <a href="#screenshot">Desktop</a>
-      <a href="#note">Note model</a>
-      <a href="#flow">How it works</a>
-      <a href="#infra">Infrastructure</a>
-      <a href="#repos">Repositories</a>
+      <a href="#purpose">Purpose</a>
+      <a href="#desktop">Desktop</a>
+      <a href="#notes">Notes</a>
+      <a href="#flow">Flow</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#infrastructure">Infrastructure</a>
+      <a href="#repositories">Code</a>
     </nav>
 
     <a class="nav-cta" href="https://github.com/stellar-mixer" target="_blank" rel="noreferrer">GitHub</a>
@@ -49,121 +50,120 @@
       <div class="hero-copy reveal">
         <div class="soft-label">
           <span></span>
-          Private. Stellar-native. Carefully engineered.
+          A careful privacy system for Stellar
         </div>
 
-        <h1>Private Stellar payments built as a complete system.</h1>
+        <h1>Private Stellar payments explained layer by layer.</h1>
 
         <p class="lead">
-          Stellar Privacy Mixer is not just a contract. It is a desktop-first privacy stack for Stellar:
-          private notes, shielded transfers, encrypted local storage, private Merkle-path retrieval,
-          archive recovery, RISC Zero proofs, and compact Soroban verification.
+          Stellar Privacy Mixer is a desktop-first mixer architecture built around private notes.
+          It separates the user’s private state, the public Soroban contract, proof generation,
+          Merkle-path retrieval, and event recovery into understandable pieces.
         </p>
 
         <div class="actions">
-          <a class="button primary" href="https://github.com/stellar-mixer/stellar-mixer-desktop" target="_blank" rel="noreferrer">
-            Explore desktop app
-          </a>
-          <a class="button ghost" href="#overview">
-            Understand the design
-          </a>
+          <a class="button primary" href="#purpose">Start with the model</a>
+          <a class="button ghost" href="https://github.com/stellar-mixer" target="_blank" rel="noreferrer">View source</a>
         </div>
 
         <div class="trust-row" aria-label="Project qualities">
-          <span>Non-custodial</span>
-          <span>Zero-knowledge</span>
-          <span>Open source</span>
-          <span>Desktop-first</span>
-          <span>Stellar-native</span>
+          <span>Private notes</span>
+          <span>TreePIR paths</span>
+          <span>RISC Zero proofs</span>
+          <span>Soroban verification</span>
+          <span>Local vault</span>
         </div>
       </div>
 
-      <div class="hero-side reveal delay-1">
-        <div class="hero-panel hero-panel-large">
-          <p class="hero-panel-label">At a glance</p>
-          <h3>What the system is trying to achieve</h3>
+      <aside class="hero-explainer reveal delay-1">
+        <div class="teacher-card">
+          <p class="card-kicker">Read this first</p>
+          <h2>What problem does a mixer actually solve?</h2>
           <p>
-            Let a user move value privately on Stellar without pushing all privacy assumptions into one place.
-            Notes stay local. The contract stays minimal. Helper servers stay narrow. The proof flow stays auditable.
+            On a public blockchain, transfers are visible. If one address funds another address,
+            the relationship can often be followed. A mixer breaks this direct link by replacing
+            “this address paid that address” with a private note system.
           </p>
-          <ul>
-            <li>Private notes instead of public balances</li>
-            <li>Flexible amounts instead of fixed denominations</li>
-            <li>Proof-backed spending instead of trusted relays</li>
-            <li>Local secret storage instead of casual wallet state</li>
-          </ul>
+          <p>
+            The important part is not only hiding one transaction. The system also has to avoid leaking
+            information while storing notes, fetching Merkle paths, syncing events, generating proofs,
+            and submitting transactions.
+          </p>
         </div>
 
-        <div class="hero-mini-grid">
-          <div class="hero-mini-card">
-            <strong>Local vault</strong>
-            <span>Secrets remain on the device, encrypted and password-protected.</span>
+        <div class="hero-steps" aria-label="High-level model">
+          <div>
+            <small>01</small>
+            <strong>Deposit</strong>
+            <span>public tokens enter the mixer as a private note commitment</span>
           </div>
-          <div class="hero-mini-card">
-            <strong>Private retrieval</strong>
-            <span>TreePIR reduces what a helper server can infer about the note being spent.</span>
+          <div>
+            <small>02</small>
+            <strong>Private note</strong>
+            <span>the full note remains local and encrypted on the user’s device</span>
           </div>
-          <div class="hero-mini-card">
-            <strong>Minimal contract</strong>
-            <span>Only commitments, roots, nullifiers, proof verification, and token movement.</span>
+          <div>
+            <small>03</small>
+            <strong>Proof</strong>
+            <span>the user proves valid ownership without revealing the original deposit</span>
           </div>
-          <div class="hero-mini-card">
-            <strong>Recoverable state</strong>
-            <span>Encrypted note sync and nullifier history help restore a Mixer Identity.</span>
+          <div>
+            <small>04</small>
+            <strong>Withdraw or transfer</strong>
+            <span>value moves without exposing the private linkage</span>
           </div>
         </div>
-      </div>
+      </aside>
     </section>
 
-    <section class="section overview" id="overview">
+    <section class="section purpose-section" id="purpose">
       <div class="section-title reveal">
-        <p>Overview</p>
-        <h2>Privacy is only real when the whole path is designed carefully.</h2>
+        <p>Purpose</p>
+        <h2>The project protects the whole path around a private payment.</h2>
         <span>
-          A mixer can lose privacy far away from the contract: when secrets are stored locally,
-          when Merkle paths are fetched, when recovery happens, when proofs are prepared, or when
-          a transaction first enters the network. Stellar Privacy Mixer treats those as first-class design problems.
+          A mixer contract alone is not enough. Privacy can fail in the client, in local storage,
+          in Merkle path lookup, in recovery infrastructure, or in the way a proof is prepared.
+          This site explains each of those layers in the order a user actually meets them.
         </span>
       </div>
 
-      <div class="overview-grid">
-        <article class="overview-card reveal">
-          <small>01</small>
-          <h3>On-chain surface stays small</h3>
+      <div class="purpose-grid">
+        <article class="purpose-card reveal">
+          <small>Problem</small>
+          <h3>Public chains create visible links.</h3>
           <p>
-            The Soroban contract deliberately avoids storing a full tree or bulky user state.
-            It keeps only the information that must be public: note commitments, root history,
-            spent nullifiers, proof verification, and token movement rules.
+            If a user deposits from one Stellar account and later withdraws to another account,
+            an observer should not be able to trivially connect those two actions.
           </p>
         </article>
 
-        <article class="overview-card reveal delay-1">
-          <small>02</small>
-          <h3>Private data stays local</h3>
+        <article class="purpose-card reveal delay-1">
+          <small>Mechanism</small>
+          <h3>Private notes replace direct balances.</h3>
           <p>
-            Notes, Mixer Identity material, recovery data, and account metadata are meant to stay
-            on the user's device inside an encrypted local vault, instead of being treated as ordinary app state.
+            The mixer does not work like a normal wallet balance. It creates notes. The public chain sees
+            commitments and nullifiers; the user keeps the private note data locally.
           </p>
         </article>
 
-        <article class="overview-card reveal delay-2">
-          <small>03</small>
-          <h3>Infrastructure is split into narrow roles</h3>
+        <article class="purpose-card reveal delay-2">
+          <small>Boundary</small>
+          <h3>Servers help without owning the user.</h3>
           <p>
-            TreePIR, the event server, and the Groth16 wrapper are helpers with sharply limited jobs.
-            That makes the system easier to reason about and easier to scale without handing too much power to one service.
+            TreePIR, the event server, and the Groth16 wrapper are helper services. Each one has a narrow job
+            and should not become a custodian of funds or a holder of private note material.
           </p>
         </article>
       </div>
     </section>
 
-    <section class="section screenshot-section" id="screenshot">
-      <div class="section-title centered narrow reveal">
+    <section class="section desktop-section" id="desktop">
+      <div class="section-title centered reveal">
         <p>Desktop application</p>
-        <h2>The interface is part of the privacy model too.</h2>
+        <h2>The interface is where privacy becomes usable.</h2>
         <span>
-          The desktop app is where private notes are created, recovered, encrypted, selected, and spent.
-          It is the user's working surface for deposits, transfers, withdrawals, account management, and operation history.
+          The desktop app is not just a visual shell. It is the place where Mixer Identity, notes,
+          accounts, proof inputs, archive sync, and transaction submission come together.
         </span>
       </div>
 
@@ -179,119 +179,97 @@
         </div>
       </div>
 
-      <div class="screenshot-caption reveal delay-2">
-        <div class="caption-card">
-          <strong>One place for the full workflow</strong>
-          <p>Accounts, Mixer Identity, notes, backend progress, proof orchestration, and transaction submission live in one coherent interface.</p>
-        </div>
-        <div class="caption-card">
-          <strong>Readable instead of mysterious</strong>
-          <p>The goal is not to hide the system behind marketing language, but to make each part understandable enough to trust and inspect.</p>
-        </div>
-        <div class="caption-card">
-          <strong>Local-first by design</strong>
-          <p>Critical private material is handled locally, while helper servers remain helpers instead of custodians.</p>
-        </div>
+      <div class="desktop-notes reveal delay-2">
+        <article>
+          <strong>What the user sees</strong>
+          <p>
+            Accounts, private balance, active notes, operations, transaction history, and proof/backend progress.
+          </p>
+        </article>
+        <article>
+          <strong>What the desktop protects</strong>
+          <p>
+            Mixer Identity, private note data, recovery material, selected accounts, and proof inputs.
+          </p>
+        </article>
+        <article>
+          <strong>What the servers provide</strong>
+          <p>
+            Encrypted event history, nullifier sync, private Merkle-path retrieval, and proof wrapping support.
+          </p>
+        </article>
       </div>
     </section>
 
-    <section class="section note-section" id="note">
-      <div class="note-shell reveal">
-        <div class="note-copy">
-          <p class="small-label">What is a note?</p>
+    <section class="section notes-section" id="notes">
+      <div class="notes-shell reveal">
+        <div class="notes-copy">
+          <p class="small-label">Note model</p>
           <h2>A note is the private unit of value inside the mixer.</h2>
           <span>
-            The mixer does not operate like a traditional wallet balance. Value is represented as private notes.
-            A note is constructed so it can be committed into a Merkle tree, later proven to exist, and then spent
-            without publicly exposing which earlier deposit it came from.
+            A note is not just “some database row”. It is the object that lets the user later prove ownership,
+            spend privately, create a recipient note, or withdraw without revealing which earlier deposit was used.
           </span>
         </div>
 
-        <div class="note-grid">
-          <article class="note-card">
-            <h3>Flexible by amount</h3>
-            <p>
-              Notes are not restricted to fixed denominations. A user can deposit, transfer, and withdraw arbitrary amounts,
-              which makes the system more usable than mixers that force everyone into a small set of fixed note sizes.
-            </p>
-          </article>
-
-          <article class="note-card">
-            <h3>Owned by secret material</h3>
-            <p>
-              Each note has an owner. Only the holder of the required private material can assemble valid proof inputs
-              for spending it. In practice, that means only the legitimate owner can produce the STARK proof that is later wrapped
-              into the Groth16-compatible form accepted by the verifier stack.
-            </p>
-          </article>
-
-          <article class="note-card">
-            <h3>Useful beyond person-to-person transfers</h3>
-            <p>
-              Notes can also carry structured payload ideas for future service-payment flows. That opens the door to private payments
-              for goods, APIs, or infrastructure, where the receiver learns what was paid for without learning who paid.
-            </p>
-          </article>
-        </div>
-
-        <div class="note-steps">
-          <div class="note-step">
-            <strong>Private note data</strong>
-            <span>amount · owner material · secrets · spend metadata</span>
+        <div class="note-diagram" aria-label="Private note model diagram">
+          <div class="note-part">
+            <small>Private data</small>
+            <strong>amount</strong>
+            <span>the value represented by the note</span>
           </div>
-          <div class="note-arrow">→</div>
-          <div class="note-step">
-            <strong>Commitment</strong>
-            <span>a hash that can be published safely</span>
+          <div class="note-part">
+            <small>Private data</small>
+            <strong>owner material</strong>
+            <span>secret material required to spend</span>
           </div>
-          <div class="note-arrow">→</div>
-          <div class="note-step">
-            <strong>Merkle leaf</strong>
-            <span>appended into the public mixer tree</span>
+          <div class="note-part">
+            <small>Private data</small>
+            <strong>nullifier material</strong>
+            <span>prevents double spending when revealed</span>
           </div>
-          <div class="note-arrow">→</div>
-          <div class="note-step">
-            <strong>Spend proof</strong>
-            <span>proves ownership and validity without revealing linkage</span>
+          <div class="note-part">
+            <small>Optional</small>
+            <strong>payload</strong>
+            <span>future service-payment context</span>
+          </div>
+
+          <div class="diagram-arrow">↓</div>
+
+          <div class="commitment-card">
+            <small>Public commitment</small>
+            <strong>hash(note data)</strong>
+            <span>
+              The contract can store this commitment without seeing the private note contents.
+            </span>
           </div>
         </div>
       </div>
-    </section>
 
-    <section class="section privacy-section">
-      <div class="section-title centered narrow reveal">
-        <p>Privacy boundaries</p>
-        <h2>Who sees what?</h2>
-        <span>
-          The design becomes easier to trust when each layer is allowed to learn only what it actually needs.
-        </span>
-      </div>
-
-      <div class="privacy-grid">
-        <article class="privacy-card reveal">
-          <small>Local desktop</small>
-          <h3>Sees the private note.</h3>
+      <div class="explain-grid">
+        <article class="explain-card reveal">
+          <h3>Why flexible notes matter</h3>
           <p>
-            The desktop creates and stores the private note, account metadata, recovery data, and proof inputs.
-            This is the sensitive side of the system, so local protection matters.
+            Many mixers use fixed denominations. That can simplify some analysis, but it makes ordinary payments awkward.
+            Stellar Privacy Mixer is designed around flexible-value notes so deposits, transfers, change, and withdrawals
+            can feel closer to normal payments.
           </p>
         </article>
 
-        <article class="privacy-card reveal delay-1">
-          <small>Mixer contract</small>
-          <h3>Sees public commitments and spends.</h3>
+        <article class="explain-card reveal delay-1">
+          <h3>Why ownership stays private</h3>
           <p>
-            The contract sees note commitments, root history, nullifiers, proof verification, and token movement.
-            It does not see plaintext note contents or the user's local vault.
+            The note owner does not publish the full note. Instead, the client constructs proof inputs locally.
+            The proof says, in effect: “I know a valid note in the tree, and I am allowed to spend it,” without revealing
+            which historical note is being spent.
           </p>
         </article>
 
-        <article class="privacy-card reveal delay-2">
-          <small>Helper servers</small>
-          <h3>See only narrow operational slices.</h3>
+        <article class="explain-card reveal delay-2">
+          <h3>Why nullifiers are public</h3>
           <p>
-            TreePIR helps with private path retrieval, the event server mirrors encrypted note data and nullifiers,
-            and the wrapper assists proof-format conversion. None of them should become custodians of user funds.
+            The contract must reject double spends. A nullifier gives it a public marker for “this note has already been used”
+            without forcing the contract to learn the plaintext note or link it directly to the deposit.
           </p>
         </article>
       </div>
@@ -299,10 +277,10 @@
 
     <section class="section flow-section" id="flow">
       <div class="section-title centered reveal">
-        <p>How it works</p>
-        <h2>Four workflows explain most of the system.</h2>
+        <p>Walkthrough</p>
+        <h2>The full flow in four steps.</h2>
         <span>
-          If you understand deposit, private transfer, withdraw, and recovery, you already understand the heart of the architecture.
+          Use the tabs below as a compact mental model. Each step is a different privacy boundary.
         </span>
       </div>
 
@@ -315,75 +293,167 @@
 
       <div class="flow-panel reveal">
         <div class="flow-number" id="flow-number">01</div>
-        <div class="flow-content">
+        <div class="flow-main">
           <h3 id="flow-title">Deposit creates a private note.</h3>
           <p id="flow-text">
             The desktop creates private note data locally, publishes only a commitment to the Soroban mixer contract,
-            and stores the full note in the encrypted local vault.
+            and stores the full note inside the encrypted local vault.
           </p>
-          <ul class="flow-points" id="flow-points">
-            <li>Creates note data locally</li>
-            <li>Publishes a public commitment on-chain</li>
-            <li>Keeps plaintext note contents on the device</li>
+          <ul id="flow-points" class="flow-points">
+            <li>The user chooses an amount.</li>
+            <li>The client creates private note material.</li>
+            <li>The contract receives only a public commitment.</li>
           </ul>
         </div>
-        <div class="flow-lines" aria-hidden="true">
-          <span></span><span></span><span></span>
+        <div class="flow-visual" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
         </div>
       </div>
     </section>
 
-    <section class="section infra" id="infra">
+    <section class="section privacy-section" id="privacy">
+      <div class="section-title centered reveal">
+        <p>Privacy boundaries</p>
+        <h2>What each layer is allowed to learn.</h2>
+        <span>
+          This is the key idea. A clean privacy system is not magic; it is careful separation.
+        </span>
+      </div>
+
+      <div class="boundary-table reveal">
+        <div class="boundary-row boundary-head">
+          <span>Layer</span>
+          <span>What it sees</span>
+          <span>What it should not learn</span>
+        </div>
+
+        <div class="boundary-row">
+          <span>Desktop app</span>
+          <span>Private notes, Mixer Identity, account metadata, proof inputs.</span>
+          <span>It should not leak this material into ordinary remote services.</span>
+        </div>
+
+        <div class="boundary-row">
+          <span>Soroban contract</span>
+          <span>Commitments, roots, nullifiers, verification results, token movement.</span>
+          <span>Plaintext notes, user vault data, and private ownership material.</span>
+        </div>
+
+        <div class="boundary-row">
+          <span>TreePIR server</span>
+          <span>Tree data and PIR protocol messages.</span>
+          <span>The exact note leaf path the user is preparing to spend.</span>
+        </div>
+
+        <div class="boundary-row">
+          <span>Event server</span>
+          <span>Encrypted notes, nullifier history, sync state.</span>
+          <span>Plaintext note contents or who can spend a note.</span>
+        </div>
+
+        <div class="boundary-row">
+          <span>Groth16 wrapper</span>
+          <span>Receipt wrapping input and output format.</span>
+          <span>Stellar secret keys, wallet state, or vault passwords.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section treepir-section">
+      <div class="section-title reveal">
+        <p>Merkle path retrieval</p>
+        <h2>Why TreePIR matters.</h2>
+        <span>
+          To spend a note, the client needs Merkle path data. A naïve server request would reveal too much.
+          TreePIR is used so path retrieval does not become a simple tracking signal.
+        </span>
+      </div>
+
+      <div class="pir-compare">
+        <article class="pir-card bad reveal">
+          <small>Naïve lookup</small>
+          <h3>“Give me the path for leaf 22.”</h3>
+          <p>
+            The server immediately learns which leaf the user is interested in. If that leaf is later spent,
+            this can become useful correlation data.
+          </p>
+        </article>
+
+        <div class="pir-divider reveal delay-1">
+          <span>instead</span>
+        </div>
+
+        <article class="pir-card good reveal delay-2">
+          <small>TreePIR-style retrieval</small>
+          <h3>“Help me retrieve path data without seeing my selected leaf directly.”</h3>
+          <p>
+            The server still provides tree data, but the request is structured so the selected path is not handed
+            over as a plain index.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section infrastructure-section" id="infrastructure">
       <div class="section-title reveal">
         <p>Infrastructure</p>
         <h2>Each helper has one narrow job.</h2>
         <span>
-          Narrow responsibilities make the system easier to inspect, easier to replace in parts,
-          and easier to scale into a broader privacy ecosystem.
+          The goal is to make every part replaceable and understandable. A helper should help; it should not become
+          the place where privacy assumptions silently accumulate.
         </span>
       </div>
 
       <div class="infra-map reveal">
-        <button class="infra-node active" data-infra="treepir">
+        <button class="infra-node active" data-infra="contract">
           <small>01</small>
-          <strong>TreePIR Server</strong>
-          <span>Private Merkle-path retrieval</span>
+          <strong>Mixer contract</strong>
+          <span>public commitments and nullifiers</span>
+        </button>
+
+        <button class="infra-node" data-infra="treepir">
+          <small>02</small>
+          <strong>TreePIR server</strong>
+          <span>private Merkle-path retrieval</span>
         </button>
 
         <button class="infra-node" data-infra="event">
-          <small>02</small>
-          <strong>Event Server</strong>
-          <span>Encrypted note sync and recovery</span>
+          <small>03</small>
+          <strong>Event server</strong>
+          <span>encrypted sync and recovery</span>
         </button>
 
         <button class="infra-node" data-infra="wrapper">
-          <small>03</small>
-          <strong>Groth16 Wrapper</strong>
-          <span>Receipt format conversion</span>
+          <small>04</small>
+          <strong>Groth16 wrapper</strong>
+          <span>proof receipt conversion</span>
         </button>
 
         <button class="infra-node" data-infra="vault">
-          <small>04</small>
-          <strong>Desktop Vault</strong>
-          <span>Local secret storage boundary</span>
+          <small>05</small>
+          <strong>Desktop vault</strong>
+          <span>local secret boundary</span>
         </button>
       </div>
 
       <div class="infra-panel reveal">
-        <h3 id="infra-title">TreePIR Server</h3>
+        <h3 id="infra-title">Mixer contract</h3>
         <p id="infra-text">
-          Merkle path lookup can leak which note a user is preparing to spend. TreePIR helps separate path retrieval
-          from direct leaf disclosure so the server is not simply handed the exact selected leaf index.
+          The contract is intentionally small. It stores commitments, root history, spent nullifiers,
+          verifier configuration, and token movement rules. It does not store plaintext notes or local wallet state.
         </p>
       </div>
     </section>
 
-    <section class="section future" id="future">
+    <section class="section future-section">
       <div class="section-title centered reveal">
         <p>Future directions</p>
-        <h2>The current system is a foundation, not the endpoint.</h2>
+        <h2>The same structure can support more than withdrawals.</h2>
         <span>
-          The architecture is intentionally shaped so more privacy-preserving services can be layered on top of it later.
+          These are extensions the architecture is shaped to support. They are written as future directions,
+          not as a claim that every flow is already production-ready.
         </span>
       </div>
 
@@ -391,41 +461,43 @@
         <article class="future-card reveal">
           <h3>Private service payments</h3>
           <p>
-            Payload-bound note flows can eventually let a service recognize what was paid for while still not learning who paid.
+            Notes can be extended with structured payload ideas so a service can recognize what was paid for
+            without learning the payer identity.
           </p>
         </article>
 
         <article class="future-card reveal delay-1">
           <h3>Infrastructure incentives</h3>
           <p>
-            TreePIR servers, archive mirrors, wrappers, and relays can become economically incentivized parts of a broader network.
+            TreePIR servers, archive mirrors, proof wrappers, and future relayers can become paid parts of the privacy network.
           </p>
         </article>
 
         <article class="future-card reveal delay-2">
           <h3>Fee-payer relays</h3>
           <p>
-            Stellar fee-payer patterns can help users interact with the mixer without exposing a direct first-funding link.
+            Stellar fee-payer patterns can reduce the first-funding link by letting relayers pay transaction fees for users.
           </p>
         </article>
 
         <article class="future-card reveal delay-3">
           <h3>Tor-assisted submission</h3>
           <p>
-            Only the sensitive transaction-submission step may need private transport. Sync and reading can stay lightweight.
+            The most sensitive network action is transaction submission. Future clients can route that step separately
+            while keeping sync fast.
           </p>
         </article>
       </div>
     </section>
 
-    <section class="section repos" id="repos">
+    <section class="section repos-section" id="repositories">
       <div class="repo-shell reveal">
         <div class="repo-copy">
           <p class="small-label">Open-source repositories</p>
-          <h2>One project, separated into clear components.</h2>
+          <h2>One system, split into inspectable components.</h2>
           <span>
-            The desktop app, contract, proof programs, and infrastructure are split into independent repositories
-            so each piece can be studied, tested, and evolved on its own.
+            The repositories are separated so a reviewer can inspect the contract, proof code, TreePIR code,
+            event archive, wrapper service, and desktop client independently.
           </span>
         </div>
 
@@ -440,16 +512,16 @@
             <span>RISC Zero guest programs</span><strong>stellar-mixer-risc0-prover</strong>
           </a>
           <a href="https://github.com/stellar-mixer/stellar-mixer-treepir-server" target="_blank" rel="noreferrer">
-            <span>Private Merkle-path server</span><strong>stellar-mixer-treepir-server</strong>
+            <span>Private path server</span><strong>stellar-mixer-treepir-server</strong>
           </a>
           <a href="https://github.com/stellar-mixer/stellar-mixer-event-server" target="_blank" rel="noreferrer">
             <span>Encrypted event archive</span><strong>stellar-mixer-event-server</strong>
           </a>
           <a href="https://github.com/stellar-mixer/treepir-core" target="_blank" rel="noreferrer">
-            <span>Generic PIR library</span><strong>treepir-core</strong>
+            <span>Generic TreePIR core</span><strong>treepir-core</strong>
           </a>
           <a href="https://github.com/stellar-mixer/treepir-client" target="_blank" rel="noreferrer">
-            <span>Generic PIR client</span><strong>treepir-client</strong>
+            <span>Generic TreePIR client</span><strong>treepir-client</strong>
           </a>
           <a href="https://github.com/stellar-mixer/risc0-groth16-wrapper-server" target="_blank" rel="noreferrer">
             <span>Proof wrapper service</span><strong>risc0-groth16-wrapper-server</strong>
@@ -464,7 +536,7 @@
       <img src="./assets/logo.png" alt="" />
       <div>
         <strong>Stellar Privacy Mixer</strong>
-        <span>Private notes. Shielded transfers. Careful infrastructure.</span>
+        <span>Private notes. Shielded transfers. Carefully separated infrastructure.</span>
       </div>
     </div>
 

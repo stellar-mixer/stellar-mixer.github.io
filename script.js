@@ -17,11 +17,11 @@ const flowData = {
   deposit: {
     number: "01",
     title: "Deposit creates a private note.",
-    text: "The desktop creates private note data locally, publishes only a commitment to the Soroban mixer contract, and stores the full note in the encrypted local vault.",
+    text: "The desktop creates private note data locally, publishes only a commitment to the Soroban mixer contract, and stores the full note inside the encrypted local vault.",
     points: [
-      "Creates note data locally",
-      "Publishes a public commitment on-chain",
-      "Keeps plaintext note contents on the device"
+      "The user chooses an amount.",
+      "The client creates private note material.",
+      "The contract receives only a public commitment."
     ]
   },
   transfer: {
@@ -29,29 +29,29 @@ const flowData = {
     title: "Private transfer creates a recipient note.",
     text: "The sender proves ownership of input notes, encrypts a new note to the recipient Mixer Identity, and can return change as another private note.",
     points: [
-      "Consumes one or more input notes privately",
-      "Creates a recipient note that only the recipient can use",
-      "Can produce private change back to the sender"
+      "The sender spends one or more private notes.",
+      "The recipient receives an encrypted note.",
+      "Change can return to the sender as another private note."
     ]
   },
   withdraw: {
     number: "03",
-    title: "Withdraw without linking back to the original deposit.",
+    title: "Withdraw without linking back to the deposit.",
     text: "The client retrieves Merkle-path data, proves note ownership and nullifier correctness, wraps the receipt, and submits a verified withdrawal.",
     points: [
-      "Fetches spend data without revealing too much to helpers",
-      "Builds a STARK proof locally and wraps it for verification",
-      "Publishes a nullifier so the same note cannot be spent twice"
+      "The client needs Merkle path data for the note.",
+      "A proof shows valid ownership without revealing the deposit link.",
+      "A public nullifier prevents the same note from being spent twice."
     ]
   },
   recover: {
     number: "04",
     title: "Recover through encrypted archive data.",
-    text: "The event server helps the desktop resync encrypted notes and nullifiers while plaintext note contents remain local to the user's device.",
+    text: "The event server helps the desktop resync encrypted notes and nullifiers while plaintext note contents remain local to the user’s device.",
     points: [
-      "Useful when restoring from recovery material",
-      "Downloads encrypted archive information and public nullifier history",
-      "Rebuilds usable local state without making the server a custodian"
+      "The archive server mirrors encrypted note events.",
+      "The desktop decrypts only notes meant for its Mixer Identity.",
+      "Nullifier history lets the app distinguish spendable and spent notes."
     ]
   }
 };
@@ -77,21 +77,25 @@ document.querySelectorAll(".flow-tab").forEach((button) => {
 });
 
 const infraData = {
+  contract: {
+    title: "Mixer contract",
+    text: "The contract is intentionally small. It stores commitments, root history, spent nullifiers, verifier configuration, and token movement rules. It does not store plaintext notes or local wallet state."
+  },
   treepir: {
-    title: "TreePIR Server",
-    text: "Merkle-path lookup can leak which note a user is preparing to spend. TreePIR helps separate path retrieval from direct leaf disclosure, so the helper server is not simply handed the exact selected leaf index."
+    title: "TreePIR server",
+    text: "Merkle-path lookup can reveal which note a user is preparing to spend. TreePIR helps separate path retrieval from direct leaf disclosure, so the helper server is not simply handed the exact selected leaf index."
   },
   event: {
-    title: "Event Server",
+    title: "Event server",
     text: "The event server mirrors encrypted note events, nullifiers, and sync state. It improves recovery and availability without needing plaintext note contents."
   },
   wrapper: {
-    title: "Groth16 Wrapper",
-    text: "The wrapper converts local RISC Zero receipts into the Groth16-compatible form used by the verifier stack. It helps with proof formatting, but it does not hold the user's local vault or secret note material."
+    title: "Groth16 wrapper",
+    text: "The wrapper converts local RISC Zero receipts into the Groth16-compatible form used by the verifier stack. It helps with proof formatting, but it does not hold the user’s vault or secret note material."
   },
   vault: {
-    title: "Desktop Vault",
-    text: "The desktop vault protects Mixer Identity data, private notes, account state, and recovery material locally. This boundary matters because privacy can be lost long before a transaction reaches the chain."
+    title: "Desktop vault",
+    text: "The desktop vault protects Mixer Identity data, private notes, account state, and recovery material locally. This boundary matters because privacy can be lost before a transaction ever reaches the chain."
   }
 };
 
