@@ -67,6 +67,7 @@
         </div>
 
         <div class="trust-row" aria-label="Project qualities">
+          <span>Anonymous payments</span>
           <span>Private notes</span>
           <span>TreePIR paths</span>
           <span>RISC Zero proofs</span>
@@ -278,9 +279,9 @@
     <section class="section flow-section" id="flow">
       <div class="section-title centered reveal">
         <p>Walkthrough</p>
-        <h2>The full flow in four steps.</h2>
+        <h2>The system becomes clear when you follow one note.</h2>
         <span>
-          Use the tabs below as a compact mental model. Each step is a different privacy boundary.
+          A deposit creates a note. A transfer creates another note. A withdrawal spends a note. Recovery helps the desktop rebuild local state from encrypted public history.
         </span>
       </div>
 
@@ -304,11 +305,9 @@
             <li>The client creates private note material.</li>
             <li>The contract receives only a public commitment.</li>
           </ul>
-        </div>
-        <div class="flow-visual" aria-hidden="true">
-          <span></span>
-          <span></span>
-          <span></span>
+          <p class="flow-help" id="flow-help">
+            The public chain learns that a commitment was added. It does not learn the private note contents that will later be used to spend.
+          </p>
         </div>
       </div>
     </section>
@@ -511,17 +510,17 @@
           <a href="https://github.com/stellar-mixer/stellar-mixer-risc0-prover" target="_blank" rel="noreferrer">
             <span>RISC Zero guest programs</span><strong>stellar-mixer-risc0-prover</strong>
           </a>
-          <a href="https://github.com/stellar-mixer/stellar-mixer-treepir-server" target="_blank" rel="noreferrer">
-            <span>Private path server</span><strong>stellar-mixer-treepir-server</strong>
-          </a>
-          <a href="https://github.com/stellar-mixer/stellar-mixer-event-server" target="_blank" rel="noreferrer">
-            <span>Encrypted event archive</span><strong>stellar-mixer-event-server</strong>
-          </a>
           <a href="https://github.com/stellar-mixer/treepir-core" target="_blank" rel="noreferrer">
             <span>Generic TreePIR core</span><strong>treepir-core</strong>
           </a>
-          <a href="https://github.com/stellar-mixer/treepir-client" target="_blank" rel="noreferrer">
-            <span>Generic TreePIR client</span><strong>treepir-client</strong>
+          <a href="https://github.com/stellar-mixer/treepir-server" target="_blank" rel="noreferrer">
+            <span>Generic TreePIR server</span><strong>treepir-server</strong>
+          </a>
+          <a href="https://github.com/stellar-mixer/stellar-mixer-treepir-server" target="_blank" rel="noreferrer">
+            <span>Stellar Mixer TreePIR indexer</span><strong>stellar-mixer-treepir-server</strong>
+          </a>
+          <a href="https://github.com/stellar-mixer/stellar-mixer-event-server" target="_blank" rel="noreferrer">
+            <span>Encrypted event archive</span><strong>stellar-mixer-event-server</strong>
           </a>
           <a href="https://github.com/stellar-mixer/risc0-groth16-wrapper-server" target="_blank" rel="noreferrer">
             <span>Proof wrapper service</span><strong>risc0-groth16-wrapper-server</strong>
@@ -536,7 +535,7 @@
       <img src="./assets/logo.png" alt="" />
       <div>
         <strong>Stellar Privacy Mixer</strong>
-        <span>Private notes. Shielded transfers. Carefully separated infrastructure.</span>
+        <span>Privacy-preserving anonymous payments on Stellar.</span>
       </div>
     </div>
 

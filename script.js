@@ -22,7 +22,8 @@ const flowData = {
       "The user chooses an amount.",
       "The client creates private note material.",
       "The contract receives only a public commitment."
-    ]
+    ],
+    help: "The public chain learns that a commitment was added. It does not learn the private note contents that will later be used to spend."
   },
   transfer: {
     number: "02",
@@ -32,7 +33,8 @@ const flowData = {
       "The sender spends one or more private notes.",
       "The recipient receives an encrypted note.",
       "Change can return to the sender as another private note."
-    ]
+    ],
+    help: "The receiver can use the new note, but the public chain should not reveal which earlier note funded it."
   },
   withdraw: {
     number: "03",
@@ -42,17 +44,19 @@ const flowData = {
       "The client needs Merkle path data for the note.",
       "A proof shows valid ownership without revealing the deposit link.",
       "A public nullifier prevents the same note from being spent twice."
-    ]
+    ],
+    help: "The nullifier tells the contract that this note is spent. The proof avoids revealing which commitment in the tree it came from."
   },
   recover: {
     number: "04",
     title: "Recover through encrypted archive data.",
-    text: "The event server helps the desktop resync encrypted notes and nullifiers while plaintext note contents remain local to the user’s device.",
+    text: "The event server helps the desktop resync encrypted notes and nullifiers while plaintext note contents remain local to the user's device.",
     points: [
       "The archive server mirrors encrypted note events.",
       "The desktop decrypts only notes meant for its Mixer Identity.",
       "Nullifier history lets the app distinguish spendable and spent notes."
-    ]
+    ],
+    help: "Recovery is useful only because the archive data is encrypted. The server can help with availability without reading the user's notes."
   }
 };
 
@@ -60,6 +64,7 @@ const flowNumber = document.getElementById("flow-number");
 const flowTitle = document.getElementById("flow-title");
 const flowText = document.getElementById("flow-text");
 const flowPoints = document.getElementById("flow-points");
+const flowHelp = document.getElementById("flow-help");
 
 document.querySelectorAll(".flow-tab").forEach((button) => {
   button.addEventListener("click", () => {
@@ -73,6 +78,7 @@ document.querySelectorAll(".flow-tab").forEach((button) => {
     if (flowTitle) flowTitle.textContent = data.title;
     if (flowText) flowText.textContent = data.text;
     if (flowPoints) flowPoints.innerHTML = data.points.map((item) => `<li>${item}</li>`).join("");
+    if (flowHelp) flowHelp.textContent = data.help;
   });
 });
 

@@ -1025,3 +1025,85 @@ h3 {
     flex-direction: column;
   }
 }
+
+
+/* === manual polish v2: clarity pass === */
+
+.flow-panel {
+  grid-template-columns: 96px minmax(0, 1fr);
+  align-items: start;
+  min-height: auto;
+  padding: 34px;
+}
+
+.flow-number {
+  margin-top: 4px;
+}
+
+.flow-main h3,
+.flow-content h3 {
+  margin-bottom: 12px;
+}
+
+.flow-points {
+  margin-top: 20px;
+  display: grid;
+  gap: 9px;
+}
+
+.flow-points li {
+  padding-left: 2px;
+}
+
+.flow-help {
+  margin: 22px 0 0;
+  padding: 16px 18px;
+  border: 1px solid rgba(118, 240, 255, .18);
+  border-radius: 18px;
+  color: #d8edf8;
+  background:
+    radial-gradient(circle at 5% 50%, rgba(118, 240, 255, .12), transparent 34%),
+    rgba(255, 255, 255, .035);
+}
+
+.flow-visual,
+.flow-lines {
+  display: none !important;
+}
+
+.repo-list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.repo-list a {
+  min-height: 78px;
+}
+
+.repo-list a:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
+.footer-brand span {
+  color: #c3d8ea;
+}
+
+@media (max-width: 1180px) {
+  .flow-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .flow-number {
+    width: 64px;
+    height: 64px;
+  }
+}
+
+@media (max-width: 860px) {
+  .repo-list {
+    grid-template-columns: 1fr;
+  }
+
+  .repo-list a:last-child:nth-child(odd) {
+    grid-column: auto;
+  }
+}
