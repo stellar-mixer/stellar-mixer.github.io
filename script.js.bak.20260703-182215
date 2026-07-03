@@ -17,22 +17,22 @@ const flowData = {
   deposit: {
     number: "01",
     title: "Deposit creates a private note.",
-    text: "The desktop creates private note data, publishes only a commitment to the Soroban mixer contract, and stores the full note in the local encrypted vault."
+    text: "The client creates private note data, publishes a commitment to the mixer contract, and stores the full note inside the local encrypted vault."
   },
   transfer: {
     number: "02",
-    title: "Private transfer creates a recipient note.",
-    text: "The sender proves ownership of input notes, encrypts a new note to the recipient Mixer Identity, and can return change as another private note."
+    title: "Private transfer creates a new hidden note.",
+    text: "The sender proves ownership of an input note, encrypts a recipient note, and can return change as another private note."
   },
   withdraw: {
     number: "03",
-    title: "Withdraw without linking the original deposit.",
-    text: "The client retrieves Merkle paths, proves ownership and nullifier correctness, wraps the receipt, and submits a verified withdrawal."
+    title: "Withdraw without revealing the original deposit.",
+    text: "The client proves valid ownership and nullifier correctness, then submits a withdrawal to a Stellar address."
   },
   recover: {
     number: "04",
-    title: "Recover through encrypted archive data.",
-    text: "The archive server helps the desktop resync encrypted notes and nullifiers while plaintext note contents remain on the user's device."
+    title: "Recover state from encrypted infrastructure.",
+    text: "Encrypted event sync lets the desktop restore relevant notes while keeping plaintext note contents local."
   }
 };
 
@@ -57,19 +57,19 @@ document.querySelectorAll(".flow-tab").forEach((button) => {
 const infraData = {
   treepir: {
     title: "TreePIR Server",
-    text: "Merkle path lookup can reveal which note a user is preparing to spend. TreePIR makes the path request private enough that the server does not receive a direct selected leaf index."
+    text: "Merkle path lookup can leak which note a user is preparing to spend. TreePIR separates path retrieval from direct leaf disclosure, reducing server-visible correlation."
   },
   event: {
     title: "Event Server",
-    text: "The event server mirrors encrypted notes, nullifiers, and sync state. It improves recovery and availability without needing plaintext note contents."
+    text: "The event server indexes encrypted notes and nullifiers. It supports sync and recovery while keeping plaintext note contents on the client side."
   },
   wrapper: {
     title: "Groth16 Wrapper",
-    text: "The wrapper converts local RISC Zero receipts into Groth16-compatible receipts for the verifier stack. It assists proof formatting but does not hold user keys or vault data."
+    text: "The wrapper converts local RISC Zero receipts into Groth16-compatible receipts for the on-chain verifier stack. It is not a wallet and does not hold user keys."
   },
   vault: {
     title: "Desktop Vault",
-    text: "The desktop vault protects Mixer Identity, private notes, account data, and recovery material locally instead of leaving mixer secrets in ordinary UI storage."
+    text: "The desktop vault protects Mixer Identity and private note material locally, separating sensitive mixer secrets from ordinary frontend state."
   }
 };
 

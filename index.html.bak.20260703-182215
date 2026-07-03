@@ -24,7 +24,6 @@
 
     <nav class="nav" aria-label="Main navigation">
       <a href="#features">Features</a>
-      <a href="#model">Privacy model</a>
       <a href="#flow">How it works</a>
       <a href="#infra">Infrastructure</a>
       <a href="#future">Future</a>
@@ -46,12 +45,11 @@
           Private. Stellar-native. Locally protected.
         </div>
 
-        <h1>Private Stellar payments with proof-backed notes.</h1>
+        <h1>Private Stellar payments with a careful privacy stack.</h1>
 
         <p class="lead">
-          Stellar Privacy Mixer is a desktop-first privacy system for Stellar: flexible private notes,
-          shielded transfers, local encrypted storage, TreePIR Merkle paths, RISC Zero proofs, and
-          compact Soroban verification.
+          Stellar Privacy Mixer combines private notes, shielded transfers, zero-knowledge proofs,
+          encrypted local storage, TreePIR Merkle-path retrieval, and a minimal Soroban mixer contract.
         </p>
 
         <div class="actions">
@@ -77,14 +75,18 @@
             <div class="traffic">
               <i></i><i></i><i></i>
             </div>
-            <span>Stellar Mixer Desktop</span>
+            <span>Stellar Mixer</span>
           </div>
           <img src="./assets/desktop-app.png" alt="Stellar Mixer desktop application screenshot" />
         </div>
 
-        <div class="hero-caption">
-          <span>Desktop application</span>
-          <strong>Deposits, private transfers, withdrawals, encrypted notes, and backend sync in one interface.</strong>
+        <div class="showcase-card card-left">
+          <strong>TreePIR</strong>
+          <span>private path lookup</span>
+        </div>
+        <div class="showcase-card card-right">
+          <strong>Vault</strong>
+          <span>local encrypted notes</span>
         </div>
       </div>
     </section>
@@ -92,11 +94,10 @@
     <section class="section intro">
       <div class="section-title reveal">
         <p>Designed around the weak points</p>
-        <h2>Privacy is built across the whole path.</h2>
+        <h2>Privacy is more than a contract.</h2>
         <span>
-          A mixer can lose privacy outside the contract: during local storage, Merkle path lookup,
-          event recovery, proof handling, transaction submission, and service payment context.
-          Stellar Privacy Mixer separates these responsibilities into narrow, auditable layers.
+          The contract is only one layer. Real privacy also depends on how the client stores notes,
+          retrieves Merkle paths, syncs events, builds proofs, and submits transactions.
         </span>
       </div>
     </section>
@@ -106,7 +107,7 @@
         <div class="icon shield"></div>
         <h3>Encrypted local vault</h3>
         <p>
-          Mixer Identity, private notes, Stellar accounts, and recovery data stay protected locally instead of being treated as ordinary browser state.
+          Mixer Identity, private notes, and account data stay protected locally with OS keyring-backed storage.
         </p>
       </article>
 
@@ -114,7 +115,7 @@
         <div class="icon tree"></div>
         <h3>Private Merkle retrieval</h3>
         <p>
-          The client can fetch Merkle path data without directly telling the server which note leaf is being prepared for a spend.
+          TreePIR lets the client fetch Merkle path data without revealing the selected note path to the server.
         </p>
       </article>
 
@@ -122,7 +123,7 @@
         <div class="icon layers"></div>
         <h3>Minimal on-chain surface</h3>
         <p>
-          The contract keeps the public state small: commitments, roots, nullifiers, verifier calls, and token movement rules.
+          The Soroban contract focuses on commitments, roots, nullifiers, proof verification, and token movement.
         </p>
       </article>
 
@@ -130,51 +131,9 @@
         <div class="icon cloud"></div>
         <h3>Recovery and sync</h3>
         <p>
-          Archive infrastructure helps clients find encrypted notes and nullifier state while plaintext note contents remain local.
+          Event infrastructure indexes encrypted notes and nullifiers so clients can sync and recover state.
         </p>
       </article>
-    </section>
-
-    <section class="section model-section" id="model">
-      <div class="model-shell reveal">
-        <div class="model-copy">
-          <p class="small-label">Privacy model</p>
-          <h2>What is public, what is private, and what servers are allowed to learn.</h2>
-          <span>
-            The system is designed so the blockchain, helper servers, and local desktop app each see only
-            the information they need for their role.
-          </span>
-        </div>
-
-        <div class="model-grid">
-          <article class="model-card">
-            <small>On-chain</small>
-            <h3>Commitments and nullifiers</h3>
-            <p>
-              The contract sees note commitments, historical roots, spent nullifiers, verifier results, and token movement.
-              It does not store plaintext notes or local wallet state.
-            </p>
-          </article>
-
-          <article class="model-card">
-            <small>Local desktop</small>
-            <h3>Private note ownership</h3>
-            <p>
-              The desktop keeps Mixer Identity material, private notes, account metadata, and proof inputs inside the
-              encrypted local vault.
-            </p>
-          </article>
-
-          <article class="model-card">
-            <small>Infrastructure</small>
-            <h3>Narrow server roles</h3>
-            <p>
-              TreePIR serves private path retrieval, the event server mirrors encrypted archive data, and the wrapper
-              assists with proof format conversion.
-            </p>
-          </article>
-        </div>
-      </div>
     </section>
 
     <section class="section flow-section" id="flow">
@@ -253,35 +212,36 @@
     <section class="section future" id="future">
       <div class="section-title centered reveal">
         <p>Future directions</p>
-        <h2>A foundation for private services and larger infrastructure.</h2>
+        <h2>Built to grow into a wider privacy ecosystem.</h2>
       </div>
 
       <div class="future-grid">
         <article class="future-card reveal">
-          <h3>Private service payments</h3>
+          <h3>Service payments</h3>
           <p>
-            Future payload-bound note flows can let a service recognize what was paid for without learning who paid.
+            Payload-bound notes can support private payments for invoices, API access, and digital services
+            without exposing payer identity.
           </p>
         </article>
 
         <article class="future-card reveal delay-1">
           <h3>Infrastructure incentives</h3>
           <p>
-            Independent TreePIR servers, event mirrors, wrappers, and relayers can become paid parts of the network.
+            TreePIR servers, event mirrors, wrappers, and future relayers can be rewarded by the same payment layer.
           </p>
         </article>
 
         <article class="future-card reveal delay-2">
           <h3>Fee-payer relays</h3>
           <p>
-            Stellar fee-payer patterns can help users submit mixer transactions without exposing a direct first-funding link.
+            Relayers can help abstract Stellar fees and reduce first-funding links while receiving private compensation.
           </p>
         </article>
 
         <article class="future-card reveal delay-3">
           <h3>Tor submission</h3>
           <p>
-            Future clients can route only the sensitive transaction submission step through Tor while keeping sync fast.
+            Transaction submission can be routed separately while ordinary public sync remains lightweight and fast.
           </p>
         </article>
       </div>
@@ -296,28 +256,16 @@
 
         <div class="repo-list">
           <a href="https://github.com/stellar-mixer/stellar-mixer-desktop" target="_blank" rel="noreferrer">
-            <span>Desktop application</span><strong>stellar-mixer-desktop</strong>
+            <span>Desktop app</span><strong>stellar-mixer-desktop</strong>
           </a>
           <a href="https://github.com/stellar-mixer/stellar-mixer-contract" target="_blank" rel="noreferrer">
-            <span>Soroban mixer contract</span><strong>stellar-mixer-contract</strong>
+            <span>Soroban contract</span><strong>stellar-mixer-contract</strong>
           </a>
           <a href="https://github.com/stellar-mixer/stellar-mixer-risc0-prover" target="_blank" rel="noreferrer">
-            <span>RISC Zero guest programs</span><strong>stellar-mixer-risc0-prover</strong>
+            <span>Proof programs</span><strong>stellar-mixer-risc0-prover</strong>
           </a>
           <a href="https://github.com/stellar-mixer/stellar-mixer-treepir-server" target="_blank" rel="noreferrer">
-            <span>Private Merkle paths</span><strong>stellar-mixer-treepir-server</strong>
-          </a>
-          <a href="https://github.com/stellar-mixer/stellar-mixer-event-server" target="_blank" rel="noreferrer">
-            <span>Encrypted event archive</span><strong>stellar-mixer-event-server</strong>
-          </a>
-          <a href="https://github.com/stellar-mixer/treepir-core" target="_blank" rel="noreferrer">
-            <span>Generic PIR core</span><strong>treepir-core</strong>
-          </a>
-          <a href="https://github.com/stellar-mixer/treepir-client" target="_blank" rel="noreferrer">
-            <span>Generic PIR client</span><strong>treepir-client</strong>
-          </a>
-          <a href="https://github.com/stellar-mixer/risc0-groth16-wrapper-server" target="_blank" rel="noreferrer">
-            <span>Proof wrapper service</span><strong>risc0-groth16-wrapper-server</strong>
+            <span>Private path server</span><strong>stellar-mixer-treepir-server</strong>
           </a>
         </div>
       </div>
