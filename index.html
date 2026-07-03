@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#061326" />
+  <meta name="description" content="Stellar Privacy Mixer — Stellar-native privacy infrastructure for private notes, shielded transfers, TreePIR Merkle paths, and zero-knowledge proof verification." />
+  <title>Stellar Privacy Mixer</title>
+  <link rel="icon" href="./assets/favicon.png" />
+  <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+  <div class="noise"></div>
+
+  <header class="header" data-header>
+    <a class="brand" href="#top" aria-label="Stellar Privacy Mixer">
+      <img src="./assets/logo.png" alt="" />
+      <span>Stellar Privacy Mixer</span>
+    </a>
+
+    <nav class="nav" aria-label="Main navigation">
+      <a href="#features">Features</a>
+      <a href="#flow">How it works</a>
+      <a href="#infra">Infrastructure</a>
+      <a href="#future">Future</a>
+    </nav>
+
+    <a class="nav-cta" href="https://github.com/stellar-mixer" target="_blank" rel="noreferrer">GitHub</a>
+
+    <button class="menu" type="button" aria-label="Open menu" data-menu>
+      <span></span>
+      <span></span>
+    </button>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy reveal">
+        <div class="soft-label">
+          <span></span>
+          Private. Stellar-native. Locally protected.
+        </div>
+
+        <h1>Private Stellar payments with a careful privacy stack.</h1>
+
+        <p class="lead">
+          Stellar Privacy Mixer combines private notes, shielded transfers, zero-knowledge proofs,
+          encrypted local storage, TreePIR Merkle-path retrieval, and a minimal Soroban mixer contract.
+        </p>
+
+        <div class="actions">
+          <a class="button primary" href="https://github.com/stellar-mixer/stellar-mixer-desktop" target="_blank" rel="noreferrer">
+            Explore desktop app
+          </a>
+          <a class="button ghost" href="https://github.com/stellar-mixer" target="_blank" rel="noreferrer">
+            View GitHub
+          </a>
+        </div>
+
+        <div class="trust-row" aria-label="Project qualities">
+          <span>Non-custodial</span>
+          <span>Zero-knowledge</span>
+          <span>Open source</span>
+          <span>Stellar-native</span>
+        </div>
+      </div>
+
+      <div class="hero-showcase reveal delay-1">
+        <div class="app-frame">
+          <div class="window-bar">
+            <div class="traffic">
+              <i></i><i></i><i></i>
+            </div>
+            <span>Stellar Mixer</span>
+          </div>
+          <img src="./assets/desktop-app.png" alt="Stellar Mixer desktop application screenshot" />
+        </div>
+
+        <div class="showcase-card card-left">
+          <strong>TreePIR</strong>
+          <span>private path lookup</span>
+        </div>
+        <div class="showcase-card card-right">
+          <strong>Vault</strong>
+          <span>local encrypted notes</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section intro">
+      <div class="section-title reveal">
+        <p>Designed around the weak points</p>
+        <h2>Privacy is more than a contract.</h2>
+        <span>
+          The contract is only one layer. Real privacy also depends on how the client stores notes,
+          retrieves Merkle paths, syncs events, builds proofs, and submits transactions.
+        </span>
+      </div>
+    </section>
+
+    <section class="section feature-grid" id="features">
+      <article class="feature-card reveal">
+        <div class="icon shield"></div>
+        <h3>Encrypted local vault</h3>
+        <p>
+          Mixer Identity, private notes, and account data stay protected locally with OS keyring-backed storage.
+        </p>
+      </article>
+
+      <article class="feature-card reveal delay-1">
+        <div class="icon tree"></div>
+        <h3>Private Merkle retrieval</h3>
+        <p>
+          TreePIR lets the client fetch Merkle path data without revealing the selected note path to the server.
+        </p>
+      </article>
+
+      <article class="feature-card reveal delay-2">
+        <div class="icon layers"></div>
+        <h3>Minimal on-chain surface</h3>
+        <p>
+          The Soroban contract focuses on commitments, roots, nullifiers, proof verification, and token movement.
+        </p>
+      </article>
+
+      <article class="feature-card reveal delay-3">
+        <div class="icon cloud"></div>
+        <h3>Recovery and sync</h3>
+        <p>
+          Event infrastructure indexes encrypted notes and nullifiers so clients can sync and recover state.
+        </p>
+      </article>
+    </section>
+
+    <section class="section flow-section" id="flow">
+      <div class="section-title centered reveal">
+        <p>How it works</p>
+        <h2>Simple user flow. Strong privacy boundaries.</h2>
+      </div>
+
+      <div class="flow-tabs reveal">
+        <button class="flow-tab active" data-flow="deposit">Deposit</button>
+        <button class="flow-tab" data-flow="transfer">Private transfer</button>
+        <button class="flow-tab" data-flow="withdraw">Withdraw</button>
+        <button class="flow-tab" data-flow="recover">Recover</button>
+      </div>
+
+      <div class="flow-panel reveal">
+        <div class="flow-number" id="flow-number">01</div>
+        <div>
+          <h3 id="flow-title">Deposit creates a private note.</h3>
+          <p id="flow-text">
+            The client creates private note data, publishes a commitment to the mixer contract,
+            and stores the full note inside the local encrypted vault.
+          </p>
+        </div>
+        <div class="flow-lines" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section infra" id="infra">
+      <div class="section-title reveal">
+        <p>Infrastructure</p>
+        <h2>Each server has one narrow job.</h2>
+        <span>
+          Supporting services improve availability and usability without becoming custodians of user funds
+          or holders of private note material.
+        </span>
+      </div>
+
+      <div class="infra-map reveal">
+        <button class="infra-node active" data-infra="treepir">
+          <small>01</small>
+          <strong>TreePIR Server</strong>
+          <span>Private Merkle paths</span>
+        </button>
+
+        <button class="infra-node" data-infra="event">
+          <small>02</small>
+          <strong>Event Server</strong>
+          <span>Encrypted note sync</span>
+        </button>
+
+        <button class="infra-node" data-infra="wrapper">
+          <small>03</small>
+          <strong>Groth16 Wrapper</strong>
+          <span>Receipt wrapping</span>
+        </button>
+
+        <button class="infra-node" data-infra="vault">
+          <small>04</small>
+          <strong>Desktop Vault</strong>
+          <span>Local secret storage</span>
+        </button>
+      </div>
+
+      <div class="infra-panel reveal">
+        <h3 id="infra-title">TreePIR Server</h3>
+        <p id="infra-text">
+          Merkle path lookup can leak which note a user is preparing to spend. TreePIR separates
+          path retrieval from direct leaf disclosure, reducing server-visible correlation.
+        </p>
+      </div>
+    </section>
+
+    <section class="section future" id="future">
+      <div class="section-title centered reveal">
+        <p>Future directions</p>
+        <h2>Built to grow into a wider privacy ecosystem.</h2>
+      </div>
+
+      <div class="future-grid">
+        <article class="future-card reveal">
+          <h3>Service payments</h3>
+          <p>
+            Payload-bound notes can support private payments for invoices, API access, and digital services
+            without exposing payer identity.
+          </p>
+        </article>
+
+        <article class="future-card reveal delay-1">
+          <h3>Infrastructure incentives</h3>
+          <p>
+            TreePIR servers, event mirrors, wrappers, and future relayers can be rewarded by the same payment layer.
+          </p>
+        </article>
+
+        <article class="future-card reveal delay-2">
+          <h3>Fee-payer relays</h3>
+          <p>
+            Relayers can help abstract Stellar fees and reduce first-funding links while receiving private compensation.
+          </p>
+        </article>
+
+        <article class="future-card reveal delay-3">
+          <h3>Tor submission</h3>
+          <p>
+            Transaction submission can be routed separately while ordinary public sync remains lightweight and fast.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section repos">
+      <div class="repo-shell reveal">
+        <div>
+          <p class="small-label">Open source repositories</p>
+          <h2>One project, separated into clear components.</h2>
+        </div>
+
+        <div class="repo-list">
+          <a href="https://github.com/stellar-mixer/stellar-mixer-desktop" target="_blank" rel="noreferrer">
+            <span>Desktop app</span><strong>stellar-mixer-desktop</strong>
+          </a>
+          <a href="https://github.com/stellar-mixer/stellar-mixer-contract" target="_blank" rel="noreferrer">
+            <span>Soroban contract</span><strong>stellar-mixer-contract</strong>
+          </a>
+          <a href="https://github.com/stellar-mixer/stellar-mixer-risc0-prover" target="_blank" rel="noreferrer">
+            <span>Proof programs</span><strong>stellar-mixer-risc0-prover</strong>
+          </a>
+          <a href="https://github.com/stellar-mixer/stellar-mixer-treepir-server" target="_blank" rel="noreferrer">
+            <span>Private path server</span><strong>stellar-mixer-treepir-server</strong>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-brand">
+      <img src="./assets/logo.png" alt="" />
+      <div>
+        <strong>Stellar Privacy Mixer</strong>
+        <span>Private notes. Shielded transfers. Stellar-native verification.</span>
+      </div>
+    </div>
+
+    <div class="footer-links">
+      <a href="https://github.com/stellar-mixer" target="_blank" rel="noreferrer">GitHub Organization</a>
+      <a href="mailto:kostiksobol@bk.ru">kostiksobol@bk.ru</a>
+      <a href="https://t.me/kostiksobol" target="_blank" rel="noreferrer">@kostiksobol</a>
+    </div>
+  </footer>
+
+  <script src="./script.js"></script>
+</body>
+</html>
